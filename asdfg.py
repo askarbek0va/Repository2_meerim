@@ -14,20 +14,18 @@ def check_cargo_locations (locations, kilometers):
     return True
 
 def check_total_weight(total_weight,weights):
-    total_weight = sum(weights[i] for i in range(3))
-    return total_weight
+    return total_weight == sum(weights)
 # the total weight should be equal to 713 kg
 def main():
      total_weight=713
      weights=[]
      while True:
-        cargo_location ==approximate_cargo_location()
+        cargo_location=approximate_cargo_location()
         print(cargo_location)
         kilometers=[]
         for i in range(3):
             kilometer_of_cargo = int(input(f"Enter the kilometer mark (number from 1 to 7) for box {i + 1}: "))
             kilometers.append(kilometer_of_cargo)
-
         cargo_found=check_cargo_locations(cargo_location,kilometers)
         if cargo_found:
             print("Congratulations! You found all the cargo.Now let's find their weights.")

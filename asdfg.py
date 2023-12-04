@@ -28,13 +28,13 @@ def main():
             kilometers.append(kilometer_of_cargo)
         cargo_found=check_cargo_locations(cargo_location,kilometers)
         if cargo_found:
-            print("Congratulations! You found all the cargo.Now let's find their weights.")
+            print("Congratulations! You found all the cargoes.Now let's find their weights.")
             for i in range(3):
                 weight = int(input(f'Enter the weight for box {i + 1}: '))
                 weights.append(weight)
             cargo_weight = check_total_weight(total_weight, weights)
             if cargo_weight:
-                print("Congratulations! You found all the cargo!")
+                print("Congratulations! You found all the cargoes!")
                 break
             else:
                  print("Fail, you entered wrong weight. Try again.")

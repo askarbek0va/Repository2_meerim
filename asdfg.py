@@ -1,45 +1,46 @@
 import random
 
-def initialize_cargo():
-    # Initialize three boxes with random weights and random initial locations
-    boxes = [{"weight": random.randint(100, 300), "location": random.randint(1, 7)} for _ in range(3)]
-    return boxes
+def approximate_cargo_location():
+    return random.sample(range(1, 8), 3)
+# we took range from 1 to 8, because the city was 7 kilometers away, so the Martians could hide cargos only in that distance
 
-def move_boxes(boxes):
-    # Simulate the movement of boxes with legs
-    for box in boxes:
-        box["location"] = (box["location"] + 1) % 7  # Assuming a circular path of 7 kilometers
 
-def check_cargo(boxes, marks):
-    total_weight = 0
-    correct_locations = 0
+def check_cargo_locations (locations, kilometers):
+    if len(locations)!= len(kilometers):
+        return False
+    for i in range(3):
+         if locations[i]!= kilometers[i]:
+             return False
+    return True
 
-    for i, box in enumerate(boxes):
-        if marks[i] == box["location"]:
-            total_weight += box["weight"]
-            correct_locations += 1
-
-    return total_weight, correct_locations == len(boxes)
-
+def check_total_weight(total_weight,weights):
+    total_weight = sum(weights[i] for i in range(3))
+    return total_weight
+# the total weight should be equal to 713 kg
 def main():
-    print("Welcome to the Martian Cargo Finder Program!")
-
-    cargo_boxes = initialize_cargo()
-
-    while True:
-        marks = []
+     total_weight=713
+     weights=[]
+     while True:
+        cargo_location ==approximate_cargo_location()
+        print(cargo_location)
+        kilometers=[]
         for i in range(3):
-            mark = int(input(f"Enter the kilometer mark for box {i + 1}: "))
-            marks.append(mark)
+            kilometer_of_cargo = int(input(f"Enter the kilometer mark (number from 1 to 7) for box {i + 1}: "))
+            kilometers.append(kilometer_of_cargo)
 
-        move_boxes(cargo_boxes)
-        total_weight, cargo_found = check_cargo(cargo_boxes, marks)
-
-        if cargo_found and total_weight == 713:
-            print("Congratulations! You found all the cargo.")
-            break
+        cargo_found=check_cargo_locations(cargo_location,kilometers)
+        if cargo_found:
+            print("Congratulations! You found all the cargo.Now let's find their weights.")
+            for i in range(3):
+                weight = int(input(f'Enter the weight for box {i + 1}: '))
+                weights.append(weight)
+            cargo_weight = check_total_weight(total_weight, weights)
+            if cargo_weight:
+                print("Congratulations! You found all the cargo!")
+                break
+            else:
+                 print("Fail, you entered wrong weight. Try again.")
         else:
-            print("Cargo not found or incorrect. Boxes moved. Try again.")
-
-if __name__ == "__main__":
-    main()
+             cargo_location=approximate_cargo_location()
+             print(  'Fail, the cargoes were not found. Cargoes have changed their location,enter new kilometer marks.')
+main()
